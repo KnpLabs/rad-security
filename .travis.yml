@@ -1,0 +1,27 @@
+sudo: true
+language: php
+
+matrix:
+    include:
+        - php: 5.3
+        - php: 5.4
+        - php: 5.5
+        - php: 5.6
+        - php: nightly
+        - php: hhvm
+    allow_failures:
+        - php: nightly
+        - php: hhvm
+    fast_finish: true
+
+branches:
+    only: [master]
+
+    before_script:
+        - composer selfupdate
+        - composer update --prefer-source --dev
+
+    script:
+        - bin/phpspec run -fpretty
+
+
