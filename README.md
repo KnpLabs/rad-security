@@ -1,6 +1,7 @@
 Rapid Application Development : Security
 ========================================
-Auto register some common services
+
+Provide RAD security components
 
 [![Build Status](https://travis-ci.org/KnpLabs/rad-security.svg?branch=master)](https://travis-ci.org/KnpLabs/rad-security)
 
