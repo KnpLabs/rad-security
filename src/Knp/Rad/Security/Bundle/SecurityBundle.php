@@ -7,6 +7,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SecurityBundle extends Bundle
 {
+    public function __construct()
+    {
+        $this->name = 'knp_rad_security_bundle';
+    }
+
     public function build(ContainerBuilder $container)
     {
         $container
