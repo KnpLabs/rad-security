@@ -83,7 +83,7 @@ $hugo = new \App\Model\User();
 $germinal = new \App\Model\Book($zola);
 $miserables = new \App\Model\Book($hugo);
 
-$authenticationChecker = $container->get(/* ... */);
-$authenticationChecker->isGranted(array('IS_OWNER'), $germinal); // true
-$authenticationChecker->isGranted(array('IS_OWNER'), $miserables); // false
+$authorizationChecker = $container->get(/* ... */);
+$authorizationChecker->isGranted(array('IS_OWNER'), $germinal); // true
+$authorizationChecker->isGranted(array('IS_OWNER'), $miserables); // false
 ```
