@@ -5,7 +5,7 @@ namespace Knp\Rad\Security\Bundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class KnpRadSecurityBundle extends Bundle
+class SecurityBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
