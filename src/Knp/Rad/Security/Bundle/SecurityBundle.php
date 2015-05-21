@@ -2,8 +2,8 @@
 
 namespace Knp\Rad\Security\Bundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SecurityBundle extends Bundle
 {
@@ -12,6 +12,9 @@ class SecurityBundle extends Bundle
         $this->name = 'knp_rad_security_bundle';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function build(ContainerBuilder $container)
     {
         $container
