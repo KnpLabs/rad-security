@@ -88,3 +88,44 @@ $authorizationChecker = $container->get(/* ... */);
 $authorizationChecker->isGranted(array('IS_OWNER'), $germinal); // true
 $authorizationChecker->isGranted(array('IS_OWNER'), $miserables); // false
 ```
+
+##Security from routing
+
+You can specify security constraints directly from your routing by providing a role or an array of roles with the `roles` parameter. If you specify an array, it will be passed *as is* to the authorization checker, and that means the [authorization strategy](http://symfony.com/doc/current/cookbook/security/voters.html#changing-the-access-decision-strategy) depends on your configuration of the security component.
+
+
+**Example**
+```yaml
+acme_demo:
+    path: /demo
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: Acme:demo:index.html.twig
+        _security:
+            - roles: IS_AUTHENTICATED_FULLY
+```
+
+The main advantage comes when used with the [rad-resource-resolver](https://github.com/KnpLabs/rad-resource-resolver) component & [the ParamConverter from SensioLabs](http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html).
+You can provide a `subject` previously resolved and available in the request `attributes`.
+If you have many objects resolved against which you can check security constraints, you can specify many rules.
+
+**Example**
+```yaml
+acme_group_update:
+    path: /team/{tid}/group/{gid}/update
+    defaults:
+        _controller: AcmeBundle:Group:update
+        template: Acme:Group:update.html.twig
+        _resources:
+            team:
+                # ...
+            group:
+                # ...
+        _security:
+            -
+                roles: [IS_MEMBER, ANOTHER_ROLE]
+                subject: team
+            -
+                roles: IS_OWNER
+                subject: group
+```
