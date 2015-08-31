@@ -9,11 +9,11 @@
         }
     ],
     "require": {
-        "symfony/security": "~2.6.0",
-        "symfony/dependency-injection": "~2.6.0"
+        "symfony/security": "~2.6",
+        "symfony/dependency-injection": "~2.6"
     },
     "require-dev": {
-        "bossa/phpspec2-expect": "~1.0.0",
+        "bossa/phpspec2-expect": "~1.0",
         "phpspec/phpspec": "~2.1"
     },
     "autoload": {
