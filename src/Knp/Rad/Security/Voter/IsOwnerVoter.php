@@ -2,49 +2,54 @@
 
 namespace Knp\Rad\Security\Voter;
 
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
+use Knp\Rad\Security\OwnableInterface;
+use Knp\Rad\Security\OwnerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Knp\Rad\Security\OwnerInterface;
-use Knp\Rad\Security\OwnableInterface;
 
 class IsOwnerVoter implements VoterInterface
 {
     const IS_OWNER = 'IS_OWNER';
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsAttribute($attribute)
     {
         return self::IS_OWNER === $attribute;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsClass($class)
     {
-        if (is_object($class)) {
-            $refl = new \ReflectionObject($class);
-
-            return $refl->implementsInterface('Knp\Rad\Security\OwnableInterface');
-        }
-
-        return false;
+        return is_subclass_of($class, 'Knp\Rad\Security\OwnableInterface');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function vote(TokenInterface $token, $object, array $attributes)
     {
+        $class = true === is_object($object) ? get_class($object) : $object;
+
         foreach ($attributes as $attribute) {
-            if (!$this->supportsAttribute($attribute)) {
+            if (false === $this->supportsAttribute($attribute)) {
                 continue;
             }
 
-            if (!$this->supportsClass($object)) {
+            if (false === $this->supportsClass($class)) {
                 return self::ACCESS_ABSTAIN;
             }
 
-            if (!$token->getUser() instanceof OwnerInterface) {
+            if (false === $token->getUser() instanceof OwnerInterface) {
                 return self::ACCESS_ABSTAIN;
             }
 
-            if ($this->isOwner($token->getUser(), $object)) {
+            if (true === $this->isOwner($token->getUser(), $object)) {
                 return self::ACCESS_GRANTED;
             }
 
@@ -54,9 +59,15 @@ class IsOwnerVoter implements VoterInterface
         return self::ACCESS_ABSTAIN;
     }
 
+    /**
+     * @param OwnerInterface $owner
+     * @param OwnableInterface $ownable
+     *
+     * @return boolean
+     */
     private function isOwner(OwnerInterface $owner, OwnableInterface $ownable)
     {
-        if ($ownable->getOwner() instanceof UserInterface && $owner instanceof EquatableInterface) {
+        if (true === $ownable->getOwner() instanceof UserInterface && true === $owner instanceof EquatableInterface) {
             return $owner->isEqualTo($ownable->getOwner());
         }
 
