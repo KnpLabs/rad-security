@@ -2,8 +2,9 @@
 
 namespace Knp\Rad\Security\Bundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class SecurityBundle extends Bundle
 {
@@ -19,17 +20,15 @@ class SecurityBundle extends Bundle
             ->addTag('security.voter')
         ;
 
-        if ($container->hasParameter('knp.rad.security.listener.authorization.priority')) {
-            $container->setParameter('knp.rad.security.listener.authorization.priority', '2');
-        }
+        $container->setParameter('knp.rad.security.listener.authorization.priority', '2');
 
         $container
             ->register('knp.rad.security.listener.authorization', 'Knp\Rad\Security\EventListener\AuthorizationListener')
-            ->addArgument($container->get('security.authorization_checker'))
+            ->addArgument(new Reference('security.authorization_checker'))
             ->addTag('kernel.event_listener', [
                 'event'    => 'kernel.controller',
                 'method'   => 'checkIfUserIsGranted',
-                'priority' => $container->getParameter('knp.rad.security.listener.authorization.priority'),
+                'priority' => '%knp.rad.security.listener.authorization.priority%',
             ])
         ;
     }
