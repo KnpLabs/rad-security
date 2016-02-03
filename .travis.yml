@@ -22,4 +22,5 @@ before_script:
     - composer update --prefer-source --dev
 
 script:
+    - bin/php-cs-fixer --diff --dry-run -v fix
     - bin/phpspec run -fpretty

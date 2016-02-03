@@ -2,28 +2,27 @@
 
 namespace spec\Knp\Rad\Security\Voter;
 
-use PhpSpec\ObjectBehavior;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use Knp\Rad\Security\OwnerInterface;
 use Knp\Rad\Security\OwnableInterface;
+use Knp\Rad\Security\OwnerInterface;
+use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 
 class IsOwnerVoterSpec extends ObjectBehavior
 {
-    function it_is_a_security_voter()
+    public function it_is_a_security_voter()
     {
         $this->shouldHaveType('Symfony\Component\Security\Core\Authorization\Voter\VoterInterface');
     }
 
-    function it_should_only_support_IS_OWNER_attribute()
+    public function it_should_only_support_IS_OWNER_attribute()
     {
         $this->supportsAttribute('IS_OWNER')->shouldReturn(true);
         $this->supportsAttribute('IS_SOMETHING_ELSE')->shouldReturn(false);
     }
 
-    function it_grants_access_to_owned_object(TokenInterface $token, OwnerInterface $user, OwnableInterface $object)
+    public function it_grants_access_to_owned_object(TokenInterface $token, OwnerInterface $user, OwnableInterface $object)
     {
         $token->getUser()->willReturn($user);
         $object->getOwner()->willReturn($user);
@@ -31,7 +30,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_OWNER'))->shouldReturn(VoterInterface::ACCESS_GRANTED);
     }
 
-    function it_denies_access_to_not_owned_object(
+    public function it_denies_access_to_not_owned_object(
         TokenInterface $token,
         OwnerInterface $user,
         OwnerInterface $otherUser,
@@ -43,7 +42,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_OWNER'))->shouldReturn(VoterInterface::ACCESS_DENIED);
     }
 
-    function it_abstains_to_vote_for_not_ownable_object(
+    public function it_abstains_to_vote_for_not_ownable_object(
         TokenInterface $token,
         UserInterface $user,
         OwnableInterface $object
@@ -53,7 +52,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_OWNER'))->shouldReturn(VoterInterface::ACCESS_ABSTAIN);
     }
 
-    function it_abstains_to_vote_for_not_owner_user_token(
+    public function it_abstains_to_vote_for_not_owner_user_token(
         TokenInterface $token,
         UserInterface $user,
         OwnableInterface $object
@@ -64,7 +63,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_OWNER'))->shouldReturn(VoterInterface::ACCESS_ABSTAIN);
     }
 
-    function it_abstains_to_vote_for_unknown_attribute(
+    public function it_abstains_to_vote_for_unknown_attribute(
         TokenInterface $token,
         OwnerInterface $user,
         OwnableInterface $object
@@ -75,7 +74,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_TEST'))->shouldReturn(VoterInterface::ACCESS_ABSTAIN);
     }
 
-    function it_grants_access_to_equal_owners(
+    public function it_grants_access_to_equal_owners(
         TokenInterface $token,
         UserInterface $user,
         OwnableInterface $object,
@@ -91,7 +90,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->vote($token, $object, array('IS_OWNER'))->shouldReturn(VoterInterface::ACCESS_GRANTED);
     }
 
-    function it_denies_access_to_not_equal_owners(
+    public function it_denies_access_to_not_equal_owners(
         TokenInterface $token,
         UserInterface $user,
         OwnableInterface $object,

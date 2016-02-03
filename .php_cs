@@ -1,12 +1,13 @@
 <?php
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->in('spec/')
     ->in('src/')
 ;
 
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->fixers([
+    ->fixers(array(
         'align_double_arrow',
         'align_equals',
         'concat_with_spaces',
@@ -16,6 +17,7 @@ return Symfony\CS\Config\Config::create()
         'newline_after_open_tag',
         'ordered_use',
         'phpdoc_order',
-    ])
+    ))
+    ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\PhpspecFixer())
     ->finder($finder)
 ;
