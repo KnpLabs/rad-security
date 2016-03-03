@@ -4,9 +4,13 @@ language: php
 matrix:
     include:
         - php: 5.3
+          env: 'COMPOSER_FLAGS="--prefer-lowest --prefer-stable"'
         - php: 5.4
+          env: 'COMPOSER_FLAGS="--prefer-lowest --prefer-stable"'
         - php: 5.5
+          env: 'COMPOSER_FLAGS="--prefer-lowest --prefer-stable"'
         - php: 5.6
+          env: 'COMPOSER_FLAGS="--prefer-lowest --prefer-stable"'
         - php: nightly
         - php: hhvm
     allow_failures:
@@ -19,7 +23,7 @@ branches:
 
 before_script:
     - composer selfupdate
-    - composer update --prefer-source --dev
+    - composer update --prefer-source --dev $COMPOSER_FLAGS
 
 script:
     - bin/phpspec run -fpretty
