@@ -9,20 +9,20 @@
         }
     ],
     "require": {
-        "symfony/security": "~2.6"
+        "symfony/security": "~2.6||~3.0"
     },
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0",
         "phpspec/phpspec": "~2.1",
-        "symfony/dependency-injection": "~2.6",
-        "symfony/event-dispatcher": "~2.6"
+        "symfony/dependency-injection": "~2.6||~3.0",
+        "symfony/event-dispatcher": "~2.6||~3.0"
     },
     "suggest": {
         "knplabs/rad-resource-resolver": "Allows to check authorization against resources resolved from the routing."
     },
     "autoload": {
-        "psr-0": {
-            "Knp\\Rad\\Security": "src/"
+        "psr-4": {
+            "Knp\\Rad\\Security\\": "src/Knp/Rad/Security/"
         }
     },
     "config": {
