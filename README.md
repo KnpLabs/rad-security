@@ -18,7 +18,7 @@ class AppKernel
     {
         $bundles = array(
             //...
-            new Knp\Rad\Security\Bundle\KnpRadSecurityBundle(),
+            new Knp\Rad\Security\Bundle\SecurityBundle(),
             //...
         );
 

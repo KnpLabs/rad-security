@@ -13,6 +13,7 @@
     },
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0",
+        "pedrotroller/php-cs-custom-fixer": "~1.0@dev",
         "phpspec/phpspec": "~2.1",
         "symfony/dependency-injection": "~2.6||~3.0",
         "symfony/event-dispatcher": "~2.6||~3.0"

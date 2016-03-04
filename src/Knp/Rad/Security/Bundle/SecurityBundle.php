@@ -25,11 +25,11 @@ class SecurityBundle extends Bundle
         $container
             ->register('knp.rad.security.listener.authorization', 'Knp\Rad\Security\EventListener\AuthorizationListener')
             ->addArgument(new Reference('security.authorization_checker'))
-            ->addTag('kernel.event_listener', [
+            ->addTag('kernel.event_listener', array(
                 'event'    => 'kernel.controller',
                 'method'   => 'checkIfUserIsGranted',
                 'priority' => '%knp.rad.security.listener.authorization.priority%',
-            ])
+            ))
         ;
     }
 }
