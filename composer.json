@@ -12,6 +12,7 @@
         "symfony/security": "~2.6||~3.0"
     },
     "require-dev": {
+        "php": ">=5.4",
         "bossa/phpspec2-expect": "~1.0",
         "phpspec/phpspec": "~2.1",
         "symfony/dependency-injection": "~2.6||~3.0",
