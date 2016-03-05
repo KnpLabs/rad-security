@@ -8,7 +8,7 @@ Provide RAD security components
 #Installation
 
 ```bash
-composer require knplabs/rad-security ~1.0
+composer require knplabs/rad-security ~2.1
 ```
 
 ```php
