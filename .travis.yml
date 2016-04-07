@@ -14,10 +14,12 @@ matrix:
           env: 'COMPOSER_FLAGS="--prefer-lowest --prefer-stable"'
 
 branches:
-    only: [master]
+    only:
+        - master
 
 before_script:
     - composer update --prefer-source --dev $COMPOSER_FLAGS
 
 script:
     - bin/phpspec run -fpretty
+    - bin/php-cs-fixer --diff --dry-run -v fix

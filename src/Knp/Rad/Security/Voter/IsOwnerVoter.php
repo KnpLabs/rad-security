@@ -2,12 +2,12 @@
 
 namespace Knp\Rad\Security\Voter;
 
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
+use Knp\Rad\Security\OwnableInterface;
+use Knp\Rad\Security\OwnerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Knp\Rad\Security\OwnerInterface;
-use Knp\Rad\Security\OwnableInterface;
 
 class IsOwnerVoter implements VoterInterface
 {
@@ -32,15 +32,15 @@ class IsOwnerVoter implements VoterInterface
     public function vote(TokenInterface $token, $object, array $attributes)
     {
         foreach ($attributes as $attribute) {
-            if (!$this->supportsAttribute($attribute)) {
+            if ( ! $this->supportsAttribute($attribute)) {
                 continue;
             }
 
-            if (!$this->supportsClass($object)) {
+            if ( ! $this->supportsClass($object)) {
                 return self::ACCESS_ABSTAIN;
             }
 
-            if (!$token->getUser() instanceof OwnerInterface) {
+            if ( ! $token->getUser() instanceof OwnerInterface) {
                 return self::ACCESS_ABSTAIN;
             }
 
