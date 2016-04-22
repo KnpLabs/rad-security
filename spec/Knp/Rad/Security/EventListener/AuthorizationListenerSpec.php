@@ -4,7 +4,6 @@ namespace spec\Knp\Rad\Security\EventListener;
 
 use Knp\Rad\Security\OwnableInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
@@ -28,7 +27,7 @@ class AuthorizationListenerSpec extends ObjectBehavior
         $request->attributes = $attributes;
         $attributes->get('_security', array())->willReturn(array(
             array('roles' => array('IS_MEMBER', 'ANOTHER_ROLE')),
-            array('roles' => array('IS_OWNER'), 'subject' => 'group')
+            array('roles' => array('IS_OWNER'), 'subject' => 'group'),
         ));
         $attributes->has('group')->willReturn(true);
         $attributes->get('group')->willReturn($ownable);
@@ -71,7 +70,7 @@ class AuthorizationListenerSpec extends ObjectBehavior
         $event->getRequest()->willReturn($request);
         $request->attributes = $attributes;
         $attributes->get('_security', array())->willReturn(array(
-            array('roles' => array('IS_OWNER'), 'subject' => 'group')
+            array('roles' => array('IS_OWNER'), 'subject' => 'group'),
         ));
         $attributes->has('group')->willReturn(false);
 

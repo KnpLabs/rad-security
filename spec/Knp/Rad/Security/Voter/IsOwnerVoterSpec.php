@@ -2,13 +2,12 @@
 
 namespace spec\Knp\Rad\Security\Voter;
 
-use PhpSpec\ObjectBehavior;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
-use Knp\Rad\Security\OwnerInterface;
 use Knp\Rad\Security\OwnableInterface;
+use Knp\Rad\Security\OwnerInterface;
+use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 
 class IsOwnerVoterSpec extends ObjectBehavior
 {
@@ -17,7 +16,7 @@ class IsOwnerVoterSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\Security\Core\Authorization\Voter\VoterInterface');
     }
 
-    function it_should_only_support_IS_OWNER_attribute()
+    function it_should_only_support_is_owner_attribute()
     {
         $this->supportsAttribute('IS_OWNER')->shouldReturn(true);
         $this->supportsAttribute('IS_SOMETHING_ELSE')->shouldReturn(false);
