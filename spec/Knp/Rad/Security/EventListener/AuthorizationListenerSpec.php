@@ -25,15 +25,15 @@ class AuthorizationListenerSpec extends ObjectBehavior
     {
         $event->getRequest()->willReturn($request);
         $request->attributes = $attributes;
-        $attributes->get('_security', array())->willReturn(array(
-            array('roles' => array('IS_MEMBER', 'ANOTHER_ROLE')),
-            array('roles' => array('IS_OWNER'), 'subject' => 'group'),
-        ));
+        $attributes->get('_security', [])->willReturn([
+            ['roles' => ['IS_MEMBER', 'ANOTHER_ROLE']],
+            ['roles' => ['IS_OWNER'], 'subject' => 'group'],
+        ]);
         $attributes->has('group')->willReturn(true);
         $attributes->get('group')->willReturn($ownable);
 
-        $checker->isGranted(array('IS_MEMBER', 'ANOTHER_ROLE'), null)->willReturn(true);
-        $checker->isGranted(array('IS_OWNER'), $ownable)->willReturn(true);
+        $checker->isGranted(['IS_MEMBER', 'ANOTHER_ROLE'], null)->willReturn(true);
+        $checker->isGranted(['IS_OWNER'], $ownable)->willReturn(true);
 
         $this->checkIfUserIsGranted($event);
     }
@@ -42,15 +42,15 @@ class AuthorizationListenerSpec extends ObjectBehavior
     {
         $event->getRequest()->willReturn($request);
         $request->attributes = $attributes;
-        $attributes->get('_security', array())->willReturn(array(
-            array('roles' => array('IS_MEMBER')),
-        ));
+        $attributes->get('_security', [])->willReturn([
+            ['roles' => ['IS_MEMBER']],
+        ]);
 
-        $checker->isGranted(array('IS_MEMBER'), null)->willReturn(false);
+        $checker->isGranted(['IS_MEMBER'], null)->willReturn(false);
 
         $this
             ->shouldThrow('Symfony\Component\Security\Core\Exception\AccessDeniedException')
-            ->during('checkIfUserIsGranted', array($event))
+            ->during('checkIfUserIsGranted', [$event])
         ;
     }
 
@@ -58,22 +58,22 @@ class AuthorizationListenerSpec extends ObjectBehavior
     {
         $event->getRequest()->willReturn($request);
         $request->attributes = $attributes;
-        $attributes->get('_security', array())->willReturn(array(
-            array('typo_in_role_parameter' => ''),
-        ));
+        $attributes->get('_security', [])->willReturn([
+            ['typo_in_role_parameter' => ''],
+        ]);
 
-        $this->shouldthrow('RuntimeException')->during('checkIfUserIsGranted', array($event));
+        $this->shouldthrow('RuntimeException')->during('checkIfUserIsGranted', [$event]);
     }
 
     function it_throws_an_exception_when_a_required_object_is_not_found(FilterControllerEvent $event, Request $request, ParameterBag $attributes)
     {
         $event->getRequest()->willReturn($request);
         $request->attributes = $attributes;
-        $attributes->get('_security', array())->willReturn(array(
-            array('roles' => array('IS_OWNER'), 'subject' => 'group'),
-        ));
+        $attributes->get('_security', [])->willReturn([
+            ['roles' => ['IS_OWNER'], 'subject' => 'group'],
+        ]);
         $attributes->has('group')->willReturn(false);
 
-        $this->shouldThrow('RuntimeException')->during('checkIfUserIsGranted', array($event));
+        $this->shouldThrow('RuntimeException')->during('checkIfUserIsGranted', [$event]);
     }
 }

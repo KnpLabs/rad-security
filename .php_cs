@@ -12,14 +12,15 @@ return Symfony\CS\Config\Config::create()
         'align_equals',
         'concat_with_spaces',
         'header_comment',
-        'logical_not_operators_with_spaces',
-        'long_array_syntax',
+        'line_break_between_statements',
         'newline_after_open_tag',
         'ordered_use',
         'phpdoc_order',
         'phpspec',
+        'short_array_syntax',
         'single_comment_expanded',
     ))
+    ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\LineBreakBetweenStatementsFixer())
     ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\PhpspecFixer())
     ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\SingleCommentExpandedFixer())
     ->finder($finder)
