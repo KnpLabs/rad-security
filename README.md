@@ -5,7 +5,7 @@ Provide RAD security components
 
 [![Build Status](https://travis-ci.org/KnpLabs/rad-security.svg?branch=master)](https://travis-ci.org/KnpLabs/rad-security)
 
-#Installation
+# Installation
 
 ```bash
 composer require knplabs/rad-security ~2.1
@@ -29,9 +29,9 @@ class AppKernel
 }
 ```
 
-#Usages
+# Use
 
-##IS_OWNER voter
+## IS_OWNER voter
 
 You now have access to a voter that checks if the authenticated user is the owner of an object.
 
@@ -89,7 +89,7 @@ $authorizationChecker->isGranted(array('IS_OWNER'), $germinal); // true
 $authorizationChecker->isGranted(array('IS_OWNER'), $miserables); // false
 ```
 
-##Security from routing
+## Security from routing
 
 You can specify security constraints directly from your routing by providing a role or an array of roles with the `roles` parameter. If you specify an array, it will be passed *as is* to the authorization checker, and that means the [authorization strategy](http://symfony.com/doc/current/cookbook/security/voters.html#changing-the-access-decision-strategy) depends on your configuration of the security component.
 
