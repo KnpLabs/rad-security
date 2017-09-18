@@ -5,6 +5,10 @@ Provide RAD security components
 
 [![Build Status](https://travis-ci.org/KnpLabs/rad-security.svg?branch=master)](https://travis-ci.org/KnpLabs/rad-security)
 
+# Official maintainers:
+
+* [@Einenlum](https://github.com/Einenlum)
+
 # Installation
 
 ```bash
