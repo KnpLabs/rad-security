@@ -32,15 +32,15 @@ class IsOwnerVoter implements VoterInterface
     public function vote(TokenInterface $token, $object, array $attributes)
     {
         foreach ($attributes as $attribute) {
-            if ( ! $this->supportsAttribute($attribute)) {
+            if (!$this->supportsAttribute($attribute)) {
                 continue;
             }
 
-            if ( ! $this->supportsClass($object)) {
+            if (!$this->supportsClass($object)) {
                 return self::ACCESS_ABSTAIN;
             }
 
-            if ( ! $token->getUser() instanceof OwnerInterface) {
+            if (!$token->getUser() instanceof OwnerInterface) {
                 return self::ACCESS_ABSTAIN;
             }
 
