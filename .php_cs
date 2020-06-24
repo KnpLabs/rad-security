@@ -1,26 +1,23 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+$finder = PhpCsFixer\Finder::create()
     ->in('spec/')
     ->in('src/')
 ;
 
-return Symfony\CS\Config\Config::create()
-    ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->fixers(array(
-        'align_double_arrow',
-        'align_equals',
-        'concat_with_spaces',
-        'header_comment',
-        'logical_not_operators_with_spaces',
-        'long_array_syntax',
-        'newline_after_open_tag',
-        'ordered_use',
-        'phpdoc_order',
-        'phpspec',
-        'single_comment_expanded',
-    ))
-    ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\PhpspecFixer())
-    ->addCustomFixer(new PedroTroller\CS\Fixer\Contrib\SingleCommentExpandedFixer())
-    ->finder($finder)
+return PhpCsFixer\Config::create()
+    ->setFinder($finder)
+    ->setRules([
+        'binary_operator_spaces' => [],
+        'concat_space' => [],
+        'header_comment' => [],
+        'not_operator_with_space' => true,
+        'array_syntax' => [],
+        'linebreak_after_opening_tag' => true,
+        'ordered_imports' => [],
+        'phpdoc_order' => true,
+        'PedroTroller/phpspec' => true,
+        'PedroTroller/single_line_comment' => [],
+    ])
+    ->registerCustomFixers(new PedroTroller\CS\Fixer\Fixers())
 ;
