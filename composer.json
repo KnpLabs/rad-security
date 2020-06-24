@@ -14,7 +14,7 @@
     "require-dev": {
         "php": ">=7.0.8",
         "bossa/phpspec2-expect": "~2.0||~3.0",
-        "pedrotroller/php-cs-custom-fixer": "~2.0",
+        "pedrotroller/php-cs-custom-fixer": "~2.17",
         "phpspec/phpspec": "~4.0||~5.0||~6.0",
         "symfony/dependency-injection": "~3.4||~4.3",
         "symfony/event-dispatcher": "~3.4||~4.3"
