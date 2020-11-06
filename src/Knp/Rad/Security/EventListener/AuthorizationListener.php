@@ -2,7 +2,7 @@
 
 namespace Knp\Rad\Security\EventListener;
 
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -21,12 +21,12 @@ class AuthorizationListener
         $this->checker = $checker;
     }
 
-    public function checkIfUserIsGranted(FilterControllerEvent $event)
+    public function checkIfUserIsGranted(ControllerEvent $event)
     {
         $request = $event->getRequest();
 
-        foreach ($request->attributes->get('_security', array()) as $rule) {
-            $roles = array();
+        foreach ($request->attributes->get('_security', []) as $rule) {
+            $roles = [];
 
             if (isset($rule['roles']) && ! empty($rule['roles'])) {
                 $roles = $rule['roles'];
@@ -35,7 +35,7 @@ class AuthorizationListener
             }
 
             if (is_string($roles)) {
-                $roles = array($roles);
+                $roles = [$roles];
             }
 
             $subject     = null;
@@ -51,7 +51,15 @@ class AuthorizationListener
                 $subject = $request->attributes->get($subjectName);
             }
 
-            if ( ! $this->checker->isGranted($roles, $subject)) {
+            $authorized = false;
+
+            foreach ($roles as $role) {
+                if ($this->checker->isGranted($role, $subject)) {
+                    $authorized = true;
+                }
+            }
+
+            if ( ! $authorized) {
                 throw new AccessDeniedException();
             }
         }

@@ -9,15 +9,17 @@
         }
     ],
     "require": {
-        "symfony/security": "~3.4||~4.3"
+        "symfony/security-core": "~5.1",
+        "symfony/http-kernel": "~5.1"
     },
     "require-dev": {
-        "php": ">=7.0.8",
-        "bossa/phpspec2-expect": "~2.0||~3.0",
-        "pedrotroller/php-cs-custom-fixer": "~2.17",
-        "phpspec/phpspec": "~4.0||~5.0||~6.0",
-        "symfony/dependency-injection": "~3.4||~4.3",
-        "symfony/event-dispatcher": "~3.4||~4.3"
+        "php": ">=7.2.5",
+        "bossa/phpspec2-expect": "~3.0",
+        "pedrotroller/php-cs-custom-fixer": "~2.23",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpspec/phpspec": "~6.0",
+        "symfony/dependency-injection": "~5.1",
+        "symfony/http-foundation": "~5.1"
     },
     "suggest": {
         "knplabs/rad-resource-resolver": "Allows to check authorization against resources resolved from the routing."
