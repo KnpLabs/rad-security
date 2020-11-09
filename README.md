@@ -12,25 +12,17 @@ Provide RAD security components
 # Installation
 
 ```bash
-composer require knplabs/rad-security ~2.1
+composer require knplabs/rad-security ~4.0
 ```
 
 ```php
-class AppKernel
-{
-    function registerBundles()
-    {
-        $bundles = array(
-            //...
-            new Knp\Rad\Security\Bundle\SecurityBundle(),
-            //...
-        );
+// config/bundles.php
 
-        //...
+<?php
 
-        return $bundles;
-    }
-}
+return [
+    Knp\Rad\Security\Bundle\SecurityBundle::class => ['all' => true],
+];
 ```
 
 # Use
